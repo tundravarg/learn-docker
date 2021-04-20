@@ -59,6 +59,20 @@ docker run -dp 3333:3000 getting-started
 
 
 
+## 3. Update the application
+
+
+```sh
+docker ps
+docker stop <the-container-id>
+docker rm <the-container-id>
+docker rm -f <the-container-id>
+```
+
+See: "Remove stopped containers" below.
+
+
+
 ## Notes
 
 
