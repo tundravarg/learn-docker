@@ -51,8 +51,71 @@ docker build -t getting-started .
 ```
 
 ```sh
-docker run -dp 3000:3000 getting-started
+docker run -dp 3333:3000 getting-started
 ```
 
 *   -d - “detached” mode (in the background).
-*   -p - mapping between the host’s port 3000 to the container’s port 3000.
+*   -p - mapping between the host’s port 3333 to the container’s port 3000.
+
+
+
+## Notes
+
+
+CLI Reference: https://docs.docker.com/engine/reference/commandline/docker/
+
+
+### List images
+
+```sh
+docker image ls
+docker images
+```
+
+Filter by name and tag:
+
+```sh
+docker image ls --filter reference=getti*:la*
+```
+
+Show unused images:
+
+```sh
+docker image ls --filter dangling=true
+```
+
+https://devconnected.com/how-to-list-docker-images/
+
+
+### Remove unused images:
+
+```sh
+docker rmi `docker images -q --filter dangling=true`
+```
+
+
+### list running containers
+
+```sh
+docker container ls
+docker ps
+```
+
+All containers:
+
+```sh
+docker ps -a
+```
+
+Stopped containers:
+
+```sh
+docker ps --filter status=exited
+```
+
+
+### Remove stopped containers
+
+```sh
+docker rm `docker ps -q --filter status=exited`
+```
