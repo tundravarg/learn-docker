@@ -5,10 +5,10 @@
 
 
 
-## 0. Setup
+## 1. Getting started
 
 
-### Linux Mint
+### Install on Linux Mint
 
 https://docs.docker.com/engine/install/ubuntu
 
@@ -39,3 +39,20 @@ sudo usermod -aG docker $USER
 Reboot or `newgrp docker`.
 
 Check: `docker run hello-world`.
+
+
+
+
+## 2. Sample application
+
+
+```sh
+docker build -t getting-started .
+```
+
+```sh
+docker run -dp 3000:3000 getting-started
+```
+
+*   -d - “detached” mode (in the background).
+*   -p - mapping between the host’s port 3000 to the container’s port 3000.
