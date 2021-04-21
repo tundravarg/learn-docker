@@ -114,6 +114,17 @@ docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/
 docker exec <container-id> cat /data.txt
 ```
 
+### Volumes
+
+```sh
+docker volume create todo-db
+docker volume inspect todo-db
+```
+
+```sh
+docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
+```
+
 
 
 ## Notes
