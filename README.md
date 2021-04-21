@@ -103,6 +103,19 @@ Examine you repo on hub.docker.com.
 
 
 
+## 5. Persist the DB
+
+
+```sh
+docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/null"
+```
+
+```sh
+docker exec <container-id> cat /data.txt
+```
+
+
+
 ## Notes
 
 
@@ -167,4 +180,17 @@ docker ps --filter status=exited
 
 ```sh
 docker rm `docker ps -q --filter status=exited`
+```
+
+
+### Run commands in the container
+
+```sh
+docker exec <container-id> <comman>
+```
+
+Run interactive bash int the container:
+
+```sh
+docker exec -it <container-id> bash
 ```
