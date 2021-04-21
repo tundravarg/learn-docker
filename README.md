@@ -73,6 +73,36 @@ See: "Remove stopped containers" below.
 
 
 
+## 4. Share the application
+
+
+https://hub.docker.com/
+
+1. Rename:
+    
+    ```sh
+    docker tag image-name your-user-name/getting-started
+    ```
+
+2. Push:
+
+    ```sh
+    docker login -u your-user-name
+    docker push your-user-name/image-name
+    ```
+
+Example:
+
+```sh
+docker tag getting-started tumanser/tutorial
+docker login -u tumanser
+docker push tumanser/tutorial
+```
+
+Examine you repo on hub.docker.com.
+
+
+
 ## Notes
 
 
@@ -106,6 +136,11 @@ https://devconnected.com/how-to-list-docker-images/
 ```sh
 docker rmi `docker images -q --filter dangling=true`
 ```
+
+
+### Cleanup redundant layers
+
+TODO
 
 
 ### list running containers
