@@ -103,6 +103,54 @@ Examine you repo on hub.docker.com.
 
 
 
+## 5. Persist the DB
+
+
+```sh
+docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/null"
+```
+
+```sh
+docker exec <container-id> cat /data.txt
+```
+
+### Named Volumes
+
+```sh
+docker volume create todo-db
+docker volume inspect todo-db
+```
+
+```sh
+docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
+```
+
+
+### Bind Mounts
+
+```sh
+docker run -v host-path:container-path ...
+```
+
+Example:
+
+```sh
+docker run \
+    -dp 3000:3000 \
+    -w /app \
+    -v "$(pwd):/app" \
+    node:12-alpine \
+    sh -c "yarn install && yarn run dev"
+```
+
+Print logs
+
+```sh
+docker logs -f <container-id>
+```
+
+
+
 ## Notes
 
 
@@ -167,4 +215,17 @@ docker ps --filter status=exited
 
 ```sh
 docker rm `docker ps -q --filter status=exited`
+```
+
+
+### Run commands in the container
+
+```sh
+docker exec <container-id> <comman>
+```
+
+Run interactive bash int the container:
+
+```sh
+docker exec -it <container-id> bash
 ```
