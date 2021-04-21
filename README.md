@@ -114,7 +114,7 @@ docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/
 docker exec <container-id> cat /data.txt
 ```
 
-### Volumes
+### Named Volumes
 
 ```sh
 docker volume create todo-db
@@ -123,6 +123,30 @@ docker volume inspect todo-db
 
 ```sh
 docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
+```
+
+
+### Bind Mounts
+
+```sh
+docker run -v host-path:container-path ...
+```
+
+Example:
+
+```sh
+docker run \
+    -dp 3000:3000 \
+    -w /app \
+    -v "$(pwd):/app" \
+    node:12-alpine \
+    sh -c "yarn install && yarn run dev"
+```
+
+Print logs
+
+```sh
+docker logs -f <container-id>
 ```
 
 
