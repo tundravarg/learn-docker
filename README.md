@@ -15,7 +15,7 @@ https://docs.docker.com/engine/install/ubuntu
 Modify step "... set up the stable repository ...":
 
     1. Check your Mint version: `cat /etc/os-release`
-    
+
     2. Go to https://linuxmint.com/download_all.php and find matching Ubuntu release name
 
     3. Put it (my version is "focal") into this command (from installation instructions):
@@ -79,7 +79,7 @@ See: "Remove stopped containers" below.
 https://hub.docker.com/
 
 1. Rename:
-    
+
     ```sh
     docker tag image-name your-user-name/getting-started
     ```
@@ -103,7 +103,7 @@ Examine you repo on hub.docker.com.
 
 
 
-## 5. Persist the DB
+## 5,6. Persist the DB
 
 
 ```sh
@@ -148,6 +148,77 @@ Print logs
 ```sh
 docker logs -f <container-id>
 ```
+
+
+
+# 7. Multi container apps
+
+## Create a named network
+
+```sh
+docker network create <name>
+```
+
+```sh
+docker run \
+    -d \
+    --network todo \
+    --network-alias mysql \
+    -v todo-mysql-data:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=secret \
+    -e MYSQL_DATABASE=todos \
+    mysql:5.7
+```
+
+Arguments:
+* -d              - Detached mode
+* --network       - Use network created by `docker network create`
+* --network-alias - Host name in the network
+* -v              - Bind volume
+* -e              - Set environment variable
+
+Notes:
+* Volume `todo-mysql-data` will be created automatically.
+* If MySQL isn't initialized, ${MYSQL_ROOT_PASSWORD} will be used as password
+    and ${MYSQL_DATABASE} database will be created.
+    If MySQL was initialized, nothing changes.
+* You can't connect to MySql in second container on this image.
+
+## Test the Network:
+
+```sh
+docker run -it --network todo-app nicolaka/netshoot
+dig mysql
+```
+
+## Run ToDo Application:
+
+```sh
+docker run \
+    -d \
+    -p 3000:3000 \
+    -w /app
+    -v "$(pwd)/todo/app:/app" \
+    --network todo \
+    -e MYSQL_HOST=mysql \
+    -e MYSQL_USER=root \
+    -e MYSQL_PASSWORD=secret \
+    -e MYSQL_DB=todos \
+    node:12-alpine \
+    sh -c "yarn install && yarn run dev"
+```
+
+## Test
+
+Connect to DB container and run `mysql -p`.
+
+```sql
+SHOW databases;
+USE todos;
+SELECT * FROM todo_items;
+```
+
+Run the UI: `http:localhost:3000`, make changes and look at the changes in DB.
 
 
 
