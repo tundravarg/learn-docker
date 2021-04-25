@@ -5,6 +5,19 @@
 
 
 
+## Table of Contents
+
+* [1. Getting Started](#1-Getting-Started)
+* [2. Sample Application](#2-Sample-Application)
+* [3. Update the Application](#3-Update-the-Application)
+* [4. Share the Application](#4-Share-the-Application)
+* [5,6. Persist the DB](#56-Persist-the-DB)
+* [7. Multi Container Apps](#7-Multi-Container-Apps)
+* [8. Use Docker Compose](#8-Use-Docker-Compose)
+* [Notes](#Notes)
+
+
+
 ## 1. Getting started
 
 
@@ -125,7 +138,6 @@ docker volume inspect todo-db
 docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
 ```
 
-
 ### Bind Mounts
 
 ```sh
@@ -151,7 +163,8 @@ docker logs -f <container-id>
 
 
 
-# 7. Multi container apps
+## 7. Multi container apps
+
 
 ## Create a named network
 
@@ -219,6 +232,13 @@ SELECT * FROM todo_items;
 ```
 
 Run the UI: `http:localhost:3000`, make changes and look at the changes in DB.
+
+
+
+## 8. Use Docker Compose
+
+
+TODO
 
 
 
